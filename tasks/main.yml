@@ -13,7 +13,7 @@
         enabled: false
         masked: true
 
-    - name: Stop and disable avahi
+    - name: Stop and disable avahi service
       ansible.builtin.systemd:
         name: avahi-daemon.service
         state: stopped
@@ -25,16 +25,24 @@
   become: true
   become_user: root
   block:
+    - name: Unmask avahi service
+      ansible.builtin.systemd:
+        name: avahi-daemon.service
+        masked: false
+
+    - name: Unmask avahi socket
+      ansible.builtin.systemd:
+        name: avahi-daemon.socket
+        masked: false
+
+    - name: Start and enable avahi service
+      ansible.builtin.systemd:
+        name: avahi-daemon.service
+        state: started
+        enabled: true
+
     - name: Enable avahi socket
       ansible.builtin.systemd:
         name: avahi-daemon.socket
         state: started
         enabled: true
-        masked: false
-
-    - name: Start and enable avahi
-      ansible.builtin.systemd:
-        name: avahi-daemon.service
-        state: started
-        enabled: true
-        masked: false
