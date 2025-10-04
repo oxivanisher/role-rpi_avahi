@@ -11,7 +11,7 @@ Role Variables
 
 | Name              | Comment                              | Default value |
 | ----------------- | ------------------------------------ | ------------- |
-| rpi_avahi_disable | Should the avahi daemon be disabled? | `truefalse`   |
+| rpi_avahi_disable | Should the avahi daemon be disabled? | `true`        |
 
 Example Playbook
 ----------------
