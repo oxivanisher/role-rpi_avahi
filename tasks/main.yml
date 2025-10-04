@@ -2,7 +2,7 @@
 # tasks file for rpi_avahi
 
 - name: Disable avahi
-  when: rpi_avahi_disable
+  when: rpi_avahi_disable | bool
   become: true
   become_user: root
   block:
@@ -21,7 +21,7 @@
         masked: true
 
 - name: Enable avahi
-  when: not rpi_avahi_disable
+  when: not rpi_avahi_disable | bool
   become: true
   become_user: root
   block:
