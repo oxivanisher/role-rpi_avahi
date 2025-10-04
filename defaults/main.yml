@@ -1,0 +1,3 @@
+---
+# defaults file for rpi_avahi
+rpi_avahi_disable: true

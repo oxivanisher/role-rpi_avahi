@@ -1,0 +1,40 @@
+---
+# tasks file for rpi_avahi
+
+- name: Disable avahi
+  when: rpi_avahi_disable
+  become: true
+  become_user: root
+  block:
+    - name: Disable avahi socket
+      ansible.builtin.systemd:
+        name: avahi-daemon.socket
+        state: stopped
+        enabled: false
+        masked: true
+
+    - name: Stop and disable avahi
+      ansible.builtin.systemd:
+        name: avahi-daemon.service
+        state: stopped
+        enabled: false
+        masked: true
+
+- name: Enable avahi
+  when: not rpi_avahi_disable
+  become: true
+  become_user: root
+  block:
+    - name: Enable avahi socket
+      ansible.builtin.systemd:
+        name: avahi-daemon.socket
+        state: started
+        enabled: true
+        masked: false
+
+    - name: Start and enable avahi
+      ansible.builtin.systemd:
+        name: avahi-daemon.service
+        state: started
+        enabled: true
+        masked: false
